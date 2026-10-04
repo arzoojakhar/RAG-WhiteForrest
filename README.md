@@ -1,7 +1,197 @@
 # RAG-WhiteForrest
 A standalone project for document injection creating VectorDB with RAG based AI assistant
-Nova KI-Assistent - EnergiewendeAn on-premise, privacy-first AI copilot designed for municipal administrations to accelerate local energy transition (Energiewende) planning and streamline document workflows.OverviewMunicipal governments face significant administrative burdens when navigating energy transition policies, heat planning, and local zoning guidelines. However, strict European data privacy regulations (GDPR) prevent city officials from uploading confidential public data to third-party cloud AI platforms.Nova solves this by providing a 100% local, "air-gapped" AI assistant. It allows municipal staff to query local document repositories, auto-fill standardized administrative forms, and generate audit-ready reports without sensitive data ever leaving the municipal network.Key FeaturesDocument-Backed Conversational AI (RAG): Ask questions in natural language and receive answers backed by direct citations from uploaded city plans and policy PDFs.Template Automation: Automatically extract information from municipal files and populate administrative templates (.pdf, .docx, .xlsx).100% Local & GDPR-Compliant: Powered by local open-source LLMs via Ollama. No external API calls, zero cloud data transfer, and complete data privacy.Auditability & Traceability: Every response includes exact source citations to enable fast verification by administrative officials.System Architecture & Tech StackThe application runs entirely on local infrastructure using a modern full-stack architecture:LayerTechnologyFunctionFrontendReact 19, TypeScript, ViteResponsive user interface for chatting, uploading files, and managing templates.Backend APIPython 3.11, FastAPI, UvicornREST API handling document processing, workflow routing, and application logic.AI OrchestrationLangChain, LangGraphFramework for managing multi-step agent reasoning and retrieval pipelines.Vector DatabaseChromaDBLocal vector store for semantic document indexing and fast retrieval.Local AI EngineOllama (mistral, nomic-embed-text)Runs open-source language and embedding models locally on private hardware.Document ParsingPyPDF, pdfplumber, python-docx, openpyxlTools for parsing municipal PDFs, Word documents, and Excel spreadsheets.Business ValueZero Cloud API Costs: Eliminates per-token operational charges by running open-source models on internal hardware.Reduced Processing Time: Cuts down hours spent manually cross-referencing multi-page policy manuals and filling out repetitive compliance forms.Complete Data Sovereignty: Ensures full compliance with public-sector privacy requirements and European data governance mandates.
+# Nova KI Assistant – Energy Transition
 
+A privacy-focused AI assistant built for **municipal administrations** to help with energy transition, heat planning, and local document management.
+
+The project was developed during the **Black Forest Hackathon** and is designed to run completely on a local machine, keeping sensitive municipal information within the local network.
+
+## Features
+
+- **AI Chat with RAG:** Ask questions and get answers based on uploaded municipal documents.
+- **Document Upload:** Upload PDFs, guidelines, city plans, and other local documents.
+- **Automatic Document Processing:** Extract information from PDFs, Word files, and Excel files.
+- **Template Assistance:** Analyze and help complete administrative templates.
+- **Source References:** Answers include references to the documents used to generate them.
+- **Local & Private:** Uses locally running AI models, so sensitive information is not sent to external cloud services.
+
+## Technology Used
+
+### Backend
+- Python 3.11+
+- FastAPI
+- LangChain
+- LangGraph
+- ChromaDB
+- Uvicorn
+- PyPDF / pdfplumber
+- python-docx
+- openpyxl
+
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Axios
+- Lucide React
+
+### AI
+- Ollama for running AI models locally
+- Mistral for conversations
+- Nomic Embed Text for document embeddings
+
+## How It Works
+
+1. Municipal documents are uploaded to the system.
+2. The documents are processed and divided into smaller sections.
+3. The sections are converted into embeddings and stored in a local vector database.
+4. When a user asks a question, the system searches the relevant documents.
+5. The AI generates an answer using the retrieved information.
+6. The answer includes document references so users can verify the information.
+
+## Requirements
+
+Before running the project, install:
+
+- Windows
+- Python 3.11 or newer
+- Node.js 20 or newer
+- Ollama
+
+## Setup
+
+### 1. Set Up Ollama
+
+Start Ollama and download the required models:
+
+```bash
+ollama serve
+ollama pull mistral
+ollama pull nomic-embed-text
+```
+
+### 2. Start the Backend
+
+Open a terminal and go to the backend folder:
+
+```bash
+cd municipal-ai-assistant/backend
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the FastAPI server:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend will be available at:
+
+`http://localhost:8000`
+
+API documentation:
+
+`http://localhost:8000/docs`
+
+### 3. Start the Frontend
+
+Open another terminal:
+
+```bash
+cd municipal-ai-assistant/frontend
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
+
+The application will normally be available at:
+
+`http://localhost:5173`
+
+## Configuration
+
+The main backend configuration is available in:
+
+```text
+backend/config.py
+```
+
+You can also create a `.env` file:
+
+```env
+OLLAMA_BASE_URL=http://localhost:11434
+CHAT_MODEL=mistral
+EMBEDDING_MODEL=nomic-embed-text
+```
+
+## Project Structure
+
+```text
+BlackForestHackathon/
+│
+├── municipal-ai-assistant/
+│   ├── backend/
+│   │   ├── data/
+│   │   ├── main.py
+│   │   ├── agent.py
+│   │   ├── ingestion.py
+│   │   ├── rag_chain.py
+│   │   └── requirements.txt
+│   │
+│   └── frontend/
+│       ├── src/
+│       ├── index.html
+│       ├── package.json
+│       └── vite.config.ts
+│
+└── setup_data.ps1
+```
+
+## Troubleshooting
+
+If the application does not start:
+
+- Make sure Ollama is running.
+- Check that the required models are installed.
+- Make sure the Python virtual environment is activated.
+- Check that the backend is running on port `8000`.
+- Make sure `npm install` completed successfully.
+- Check that the frontend is running on port `5173`.
+
+## Privacy
+
+The application is designed with **privacy and local data processing** in mind. AI models and document processing run locally using Ollama, reducing the need to send sensitive municipal documents to external services.
+
+## License
+
+This project is released under the **MIT License**.
 
 
 
