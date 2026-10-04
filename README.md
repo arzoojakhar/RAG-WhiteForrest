@@ -1,113 +1,12 @@
 # RAG-WhiteForrest
 A standalone project for document injection creating VectorDB with RAG based AI assistant
-Nova KI-Assistent - Energiewende (Black Forest Hackathon)
-License Python Node React FastAPI
-
-A fully local, privacy-first (GDPR-compliant) AI assistant designed for municipal administrations. Created as part of the Black Forest Hackathon, this tool supports city officials with the energy transition (Energiewende), heat planning, and local document management.
-
-Key Features
-Conversational AI with RAG: Chat with a document-backed AI assistant tailored to municipal data.
-Local Document Ingestion: Upload and index local guidelines, PDFs, and city plans securely.
-Template Automation: Automatically analyze and fill out administrative templates (PDF, DOCX, XLSX).
-Source Citations: Answers are backed by source citations to ensure accuracy and trace-back capability.
-100% Local & Privacy-First: Runs entirely on your local machine using Ollama, meaning no sensitive data ever leaves the municipal network.
-Tech Stack
-Backend
-
-Python 3.11+
-FastAPI & Uvicorn (REST API)
-LangChain & LangGraph (LLM Orchestration & Agents)
-ChromaDB (Local Vector Store)
-PyPDF, pdfplumber, python-docx, openpyxl (Document Parsing)
-Frontend
-
-React 19 & Vite
-TypeScript
-React Router & Axios
-Lucide React (Icons)
-AI & Embeddings
-
-Ollama (Local LLM Execution)
-Models: mistral (Chat) and nomic-embed-text (Embeddings)
-Prerequisites
-Before starting, ensure you have the following installed on your machine (Windows is recommended/supported as per original setup):
-
-Windows OS
-Python 3.11+
-Node.js 20+
-Ollama installed and running
-Installation & Setup
-Step 1: Prepare Local LLM (Ollama)
-The system relies on local models. Start the Ollama service and pull the required models:
-
-# 1. Start Ollama (in a separate terminal)
-ollama serve
-
-# 2. Pull the required models
-ollama pull mistral
-ollama pull nomic-embed-text
-Step 2: Start the Backend (FastAPI)
-Open a new terminal and navigate to the backend directory:
-
-cd municipal-ai-assistant/backend
-
-# Create and activate a virtual environment
-python -m venv .venv
-.venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the API server
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+Nova KI-Assistent - EnergiewendeAn on-premise, privacy-first AI copilot designed for municipal administrations to accelerate local energy transition (Energiewende) planning and streamline document workflows.OverviewMunicipal governments face significant administrative burdens when navigating energy transition policies, heat planning, and local zoning guidelines. However, strict European data privacy regulations (GDPR) prevent city officials from uploading confidential public data to third-party cloud AI platforms.Nova solves this by providing a 100% local, "air-gapped" AI assistant. It allows municipal staff to query local document repositories, auto-fill standardized administrative forms, and generate audit-ready reports without sensitive data ever leaving the municipal network.Key FeaturesDocument-Backed Conversational AI (RAG): Ask questions in natural language and receive answers backed by direct citations from uploaded city plans and policy PDFs.Template Automation: Automatically extract information from municipal files and populate administrative templates (.pdf, .docx, .xlsx).100% Local & GDPR-Compliant: Powered by local open-source LLMs via Ollama. No external API calls, zero cloud data transfer, and complete data privacy.Auditability & Traceability: Every response includes exact source citations to enable fast verification by administrative officials.System Architecture & Tech StackThe application runs entirely on local infrastructure using a modern full-stack architecture:LayerTechnologyFunctionFrontendReact 19, TypeScript, ViteResponsive user interface for chatting, uploading files, and managing templates.Backend APIPython 3.11, FastAPI, UvicornREST API handling document processing, workflow routing, and application logic.AI OrchestrationLangChain, LangGraphFramework for managing multi-step agent reasoning and retrieval pipelines.Vector DatabaseChromaDBLocal vector store for semantic document indexing and fast retrieval.Local AI EngineOllama (mistral, nomic-embed-text)Runs open-source language and embedding models locally on private hardware.Document ParsingPyPDF, pdfplumber, python-docx, openpyxlTools for parsing municipal PDFs, Word documents, and Excel spreadsheets.Business ValueZero Cloud API Costs: Eliminates per-token operational charges by running open-source models on internal hardware.Reduced Processing Time: Cuts down hours spent manually cross-referencing multi-page policy manuals and filling out repetitive compliance forms.Complete Data Sovereignty: Ensures full compliance with public-sector privacy requirements and European data governance mandates.
 
 
-Backend API URL: http://localhost:8000
-Swagger Documentation: http://localhost:8000/docs
-Step 3: Start the Frontend (React/Vite)
-Open another terminal and navigate to the frontend directory:
 
-cd municipal-ai-assistant/frontend
 
-# Install node modules
-npm install
 
-# Start the development server
-npm run dev
 
-Frontend App: http://localhost:5173
-Configuration
-Backend configuration is managed in municipal-ai-assistant/backend/config.py.
 
-Optionally, you can create a .env file in the municipal-ai-assistant/backend/ directory to override defaults:
 
-OLLAMA_BASE_URL=http://localhost:11434
-CHAT_MODEL=mistral
-EMBEDDING_MODEL=nomic-embed-text
-Repository Structure
-BlackForestHackathon
- |- municipal-ai-assistant/
- |  |- backend/
- |  |  |- data/          # Uploads, templates, and chroma_db vectors
- |  |  |- main.py        # FastAPI application entry point
- |  |  |- agent.py       # LangGraph/LangChain agent definitions
- |  |  |- ingestion.py   # Document parsing and embedding logic
- |  |  |- rag_chain.py   # Retrieval-Augmented Generation logic
- |  |  |- requirements.txt
- |  |- frontend/
- |  |  |- src/           # React components, pages, and API hooks
- |  |  |- index.html
- |  |  |- package.json
- |  |  |- vite.config.ts
- |- setup_data.ps1     # Data initialization script
- |- README.md
-Troubleshooting
-If you encounter issues during startup:
 
-Ensure Ollama is actively running in the background.
-
-Verify the Python virtual environment (.venv) is activated when running the backend.
-
-Check that the backend is successfully listening on port 8000.
-
-Ensure npm install completed without errors in the frontend folder.
